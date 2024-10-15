@@ -1,5 +1,6 @@
 {
   "generator-jhipster": {
+    "javaVersion": "21",
     "applicationType": "monolith",
     "authenticationType": "jwt",
     "baseName": "vaultApp",
