@@ -51,6 +51,7 @@
     <liquibase-plugin.password/>
     <liquibase-plugin.url/>
     <liquibase-plugin.username/>
+    <lombok.version>1.18.34</lombok.version>
     <mapstruct.version>1.6.2</mapstruct.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
@@ -280,6 +281,12 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>

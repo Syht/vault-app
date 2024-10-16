@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="00000000000003" author="syht">
+    <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+  </changeSet>
+
+  <changeSet id="00000000000004" author="syht">
+    <createTable tableName="media">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="title" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="description" type="text"/>
+      <column name="release_date" type="timestamp"/>
+      <column name="end_date" type="timestamp"/>
+      <column name="rating" type="decimal(3,2)"/> <!-- e.g., 0.00 to 10.00 -->
+      <column name="cover_image" type="bytea"/> <!-- PostgreSQL -->
+      <column name="thumbnail" type="bytea"/> <!-- PostgreSQL -->
+      <column name="creation_date" type="timestamp"/>
+      <column name="release_state" type="varchar(50)"/>
+      <column name="progress_state" type="varchar(50)"/>
+    </createTable>
+
+    <createTable tableName="manga">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="mangaka" type="varchar(255)"/>
+      <column name="illustrator" type="varchar(255)"/>
+      <column name="chapters_count" type="integer"/>
+      <column name="volume_count" type="integer"/>
+      <column name="demographic" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="film">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="director" type="varchar(255)"/>
+      <column name="duration" type="integer"/>
+      <column name="box_office" type="decimal(15,2)"/>
+      <column name="budget" type="decimal(15,2)"/>
+      <column name="saga" type="varchar(255)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="series">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="seasons_count" type="integer"/>
+      <column name="episodes_count" type="integer"/>
+      <column name="showrunner" type="varchar(255)"/>
+      <column name="network" type="varchar(255)"/>
+      <column name="episode_format" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="anime">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="studio" type="varchar(255)"/>
+      <column name="episodes_count" type="integer"/>
+      <column name="adapted_from" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="books">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="author" type="varchar(255)"/>
+      <column name="edition" type="varchar(255)"/>
+      <column name="page_count" type="integer"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="comics">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="scenarist" type="varchar(255)"/>
+      <column name="volume_count" type="integer"/>
+      <column name="illustrator" type="varchar(255)"/>
+      <column name="colorist" type="varchar(255)"/>
+      <column name="publisher" type="varchar(255)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="manga"
+                             constraintName="fk_manga_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="film"
+                             constraintName="fk_film_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="series"
+                             constraintName="fk_series_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="anime"
+                             constraintName="fk_anime_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="books"
+                             constraintName="fk_books_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="comics"
+                             constraintName="fk_comics_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+</databaseChangeLog>
