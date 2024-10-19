@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "media")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Media implements Serializable {
 
     @Serial

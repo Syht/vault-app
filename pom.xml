@@ -48,9 +48,9 @@
     <jib-maven-plugin.image>eclipse-temurin:21-jre</jib-maven-plugin.image>
     <jib-maven-plugin.version>3.4.2</jib-maven-plugin.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
-    <liquibase-plugin.password/>
-    <liquibase-plugin.url/>
-    <liquibase-plugin.username/>
+    <liquibase-plugin.password>password</liquibase-plugin.password>
+    <liquibase-plugin.url>jdbc:postgresql://localhost:5432/vaultApp</liquibase-plugin.url>
+    <liquibase-plugin.username>vaultApp</liquibase-plugin.username>
     <lombok.version>1.18.34</lombok.version>
     <mapstruct.version>1.6.2</mapstruct.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
@@ -318,6 +318,7 @@
         <filtering>true</filtering>
         <includes>
           <include>config/**/*.yml</include>
+          <include>config/**/*.xml</include>
         </includes>
       </resource>
       <resource>
@@ -988,7 +989,7 @@
         <liquibase-plugin.url>jdbc:postgresql://localhost:5432/vaultApp</liquibase-plugin.url>
         <liquibase-plugin.username>vaultApp</liquibase-plugin.username>
         <profile.test>testprod</profile.test>
-        <spring.profiles.active>prod${profile.api-docs}${profile.tls}${profile.e2e}${profile.no-liquibase}
+        <spring.profiles.active>prod${profile.api-docs}${profile.tls}${profile.e2e}
         </spring.profiles.active>
       </properties>
       <build>

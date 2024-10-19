@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                          http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <!-- Create the Media Parent Table -->
+  <changeSet id="00000000000003" author="syht">
+    <createTable tableName="media">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="title" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="description" type="text"/>
+      <column name="release_date" type="timestamp"/>
+      <column name="end_date" type="timestamp"/>
+      <column name="rating" type="decimal(3,2)"/>
+      <column name="cover_image" type="bytea"/>
+      <column name="thumbnail" type="bytea"/>
+      <column name="creation_date" type="timestamp"/>
+      <column name="release_state" type="varchar(50)"/>
+      <column name="progress_state" type="varchar(50)"/>
+    </createTable>
+
+    <!-- Create Media Genre Table for Element Collection (Set<MediaGenre>) -->
+    <createTable tableName="media_genre">
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="genre" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for media_genre to media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="media_genre"
+                             constraintName="fk_media_genre_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Manga Table -->
+  <changeSet id="00000000000004" author="syht">
+    <createTable tableName="manga">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="mangaka" type="varchar(255)"/>
+      <column name="illustrator" type="varchar(255)"/>
+      <column name="chapters_count" type="integer"/>
+      <column name="volume_count" type="integer"/>
+      <column name="demographic" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Manga to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="manga"
+                             constraintName="fk_manga_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Film Table -->
+  <changeSet id="00000000000005" author="syht">
+    <createTable tableName="film">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="director" type="varchar(255)"/>
+      <column name="duration" type="integer"/>
+      <column name="box_office" type="decimal(15,2)"/>
+      <column name="budget" type="decimal(15,2)"/>
+      <column name="saga" type="varchar(255)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Film to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="film"
+                             constraintName="fk_film_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Series Table -->
+  <changeSet id="00000000000006" author="syht">
+    <createTable tableName="series">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="seasons_count" type="integer"/>
+      <column name="episodes_count" type="integer"/>
+      <column name="showrunner" type="varchar(255)"/>
+      <column name="network" type="varchar(255)"/>
+      <column name="episode_format" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Series to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="series"
+                             constraintName="fk_series_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Anime Table -->
+  <changeSet id="00000000000007" author="syht">
+    <createTable tableName="anime">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="studio" type="varchar(255)"/>
+      <column name="episodes_count" type="integer"/>
+      <column name="adapted_from" type="varchar(50)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Anime to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="anime"
+                             constraintName="fk_anime_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Books Table -->
+  <changeSet id="00000000000008" author="syht">
+    <createTable tableName="books">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="author" type="varchar(255)"/>
+      <column name="edition" type="varchar(255)"/>
+      <column name="page_count" type="integer"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Books to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="books"
+                             constraintName="fk_books_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Comics Table -->
+  <changeSet id="00000000000009" author="syht">
+    <createTable tableName="comics">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="scenarist" type="varchar(255)"/>
+      <column name="volume_count" type="integer"/>
+      <column name="illustrator" type="varchar(255)"/>
+      <column name="colorist" type="varchar(255)"/>
+      <column name="publisher" type="varchar(255)"/>
+      <column name="media_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <!-- Add Foreign Key for Comics to Media -->
+    <addForeignKeyConstraint baseColumnNames="media_id"
+                             baseTableName="comics"
+                             constraintName="fk_comics_media"
+                             referencedColumnNames="id"
+                             referencedTableName="media"/>
+  </changeSet>
+
+  <!-- Create Indexes for Better Performance on media_id columns -->
+  <changeSet id="00000000000010" author="syht">
+    <createIndex indexName="idx_manga_media_id" tableName="manga">
+      <column name="media_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_film_media_id" tableName="film">
+      <column name="media_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_series_media_id" tableName="series">
+      <column name="media_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_anime_media_id" tableName="anime">
+      <column name="media_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_books_media_id" tableName="books">
+      <column name="media_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_comics_media_id" tableName="comics">
+      <column name="media_id"/>
+    </createIndex>
+  </changeSet>
+
+</databaseChangeLog>

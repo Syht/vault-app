@@ -70,10 +70,11 @@ public class LiquibaseConfiguration {
         liquibase.setRollbackFile(liquibaseProperties.getRollbackFile());
         liquibase.setTestRollbackOnUpdate(liquibaseProperties.isTestRollbackOnUpdate());
         if (env.matchesProfiles(JHipsterConstants.SPRING_PROFILE_NO_LIQUIBASE)) {
+            LOG.info("NO LIQUIBASE - Skiping SpringLiquibase configuration");
             liquibase.setShouldRun(false);
         } else {
             liquibase.setShouldRun(liquibaseProperties.isEnabled());
-            LOG.debug("Configuring Liquibase");
+            LOG.info("Configuring Liquibase");
         }
         return liquibase;
     }

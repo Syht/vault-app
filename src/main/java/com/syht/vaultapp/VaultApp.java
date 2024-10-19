@@ -89,7 +89,7 @@ public class VaultApp {
             """
 
             ----------------------------------------------------------
-            \tApplication '{}' is running! Access URLs:
+            \tApplication '{}' is running! :D Access URLs:
             \tLocal: \t\t{}://localhost:{}{}
             \tExternal: \t{}://{}:{}{}
             \tProfile(s): \t{}
