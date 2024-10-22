@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: VaultApp Media API
+  description: REST API for managing different types of media (manga, series, films, comics, books, anime)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+
+paths:
+  /manga:
+    get:
+      summary: Get all mangas
+      responses:
+        '200':
+          description: List of mangas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MangaDTO'
+    post:
+      summary: Create a new manga
+      requestBody:
+        description: Manga object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MangaDTO'
+      responses:
+        '201':
+          description: Manga created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MangaDTO'
+
+  /manga/{id}:
+    get:
+      summary: Get a specific manga by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The manga object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MangaDTO'
+        '404':
+          description: Manga not found
+
+    put:
+      summary: Update a manga
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated manga object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MangaDTO'
+      responses:
+        '200':
+          description: Manga updated successfully
+
+    delete:
+      summary: Delete a manga
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Manga deleted successfully
+
+  /series:
+    get:
+      summary: Get all series
+      responses:
+        '200':
+          description: List of series
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SeriesDTO'
+
+  /film:
+    get:
+      summary: Get all films
+      responses:
+        '200':
+          description: List of films
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilmDTO'
+
+  /comics:
+    get:
+      summary: Get all comics
+      responses:
+        '200':
+          description: List of comics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComicsDTO'
+
+  /book:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: List of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookDTO'
+
+  /anime:
+    get:
+      summary: Get all anime
+      responses:
+        '200':
+          description: List of anime
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnimeDTO'
+
+components:
+  schemas:
+    MangaDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/MangaDTO'
+    SeriesDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/SeriesDTO'
+    FilmDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/FilmDTO'
+    ComicsDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/ComicsDTO'
+    BookDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/BookDTO'
+    AnimeDTO:
+      $ref: './media-api-schematic.yaml#/components/schemas/AnimeDTO'

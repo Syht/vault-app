@@ -1,0 +1,136 @@
+components:
+  schemas:
+    MediaDTO:
+      discriminator:
+        propertyName: mediaType
+        mapping:
+          manga: "#/components/schemas/MangaDTO"
+          series: "#/components/schemas/SeriesDTO"
+          film: "#/components/schemas/FilmDTO"
+          comics: "#/components/schemas/ComicsDTO"
+          book: "#/components/schemas/BookDTO"
+          anime: "#/components/schemas/AnimeDTO"
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        releaseDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        genre:
+          type: array
+          items:
+            type: string
+        rating:
+          type: number
+          format: float
+        coverImage:
+          type: string
+          format: byte
+        thumbnail:
+          type: string
+          format: byte
+        creationDate:
+          type: string
+          format: date-time
+        releaseState:
+          type: string
+        progressState:
+          type: string
+
+    MangaDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            mangaka:
+              type: string
+            illustrator:
+              type: string
+            chaptersCount:
+              type: integer
+            volumeCount:
+              type: integer
+            demographic:
+              type: string
+
+    SeriesDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            seasonsCount:
+              type: integer
+            episodesCount:
+              type: integer
+            showrunner:
+              type: string
+            network:
+              type: string
+            episodeFormat:
+              type: string
+
+    FilmDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            director:
+              type: string
+            duration:
+              type: integer
+            boxOffice:
+              type: number
+              format: float
+            budget:
+              type: number
+              format: float
+            saga:
+              type: string
+
+    ComicsDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            scenarist:
+              type: string
+            illustrator:
+              type: string
+            volumeCount:
+              type: integer
+            colorist:
+              type: string
+            publisher:
+              type: string
+
+    BookDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            author:
+              type: string
+            edition:
+              type: string
+            pageCount:
+              type: integer
+
+    AnimeDTO:
+      allOf:
+        - $ref: '#/components/schemas/MediaDTO'
+        - type: object
+          properties:
+            studio:
+              type: string
+            episodesCount:
+              type: integer
+            adaptedFrom:
+              type: string
