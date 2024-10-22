@@ -1,6 +1,6 @@
 package com.syht.vaultapp.domain;
 
-import com.syht.vaultapp.domain.enums.Demographic;
+import com.syht.vaultapp.api.model.Demographic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

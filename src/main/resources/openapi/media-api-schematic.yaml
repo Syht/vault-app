@@ -27,7 +27,7 @@ components:
         genre:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/MediaGenre'
         rating:
           type: number
           format: float
@@ -41,9 +41,9 @@ components:
           type: string
           format: date-time
         releaseState:
-          type: string
+          $ref: '#/components/schemas/ReleaseState'
         progressState:
-          type: string
+          $ref: '#/components/schemas/ProgressState'
 
     MangaDTO:
       allOf:
@@ -59,7 +59,7 @@ components:
             volumeCount:
               type: integer
             demographic:
-              type: string
+              $ref: '#/components/schemas/Demographic'
 
     SeriesDTO:
       allOf:
@@ -75,7 +75,7 @@ components:
             network:
               type: string
             episodeFormat:
-              type: string
+              $ref: '#/components/schemas/EpisodeFormat'
 
     FilmDTO:
       allOf:
@@ -133,4 +133,64 @@ components:
             episodesCount:
               type: integer
             adaptedFrom:
-              type: string
+              $ref: '#/components/schemas/AdaptedFrom'
+
+    # ENUMS DEFINED BELOW
+
+    AdaptedFrom:
+      type: string
+      enum:
+        - MANGA
+        - LIGHT_NOVEL
+        - VISUAL_NOVEL
+        - VIDEO_GAME
+        - WEBTOON
+        - ANIME_ORIGINAL
+        - DRAMA
+
+    Demographic:
+      type: string
+      enum:
+        - SHONEN
+        - SEINEN
+        - SHOJO
+        - JOSEI
+
+    EpisodeFormat:
+      type: string
+      enum:
+        - VARIABLE_LENGTH
+        - FIVE_MIN
+        - TEN_MIN
+        - TWENTY_MIN
+        - THIRTY_MIN
+        - FORTY_MIN
+        - FIFTY_MIN
+
+    MediaGenre:
+      type: string
+      enum:
+        - ACTION
+        - DRAMA
+        - FANTASY
+        - HORROR
+        - THRILLER
+        - COMEDY
+
+    ProgressState:
+      type: string
+      enum:
+        - TO_CONSUME
+        - IN_PROGRESS
+        - FINISHED
+        - DROPPED
+
+    ReleaseState:
+      type: string
+      enum:
+        - ONGOING
+        - CANCELED
+        - FINISHED
+        - HIATUS
+        - UPCOMING
+        - REBOOTED

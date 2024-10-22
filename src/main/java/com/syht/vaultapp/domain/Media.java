@@ -1,8 +1,8 @@
 package com.syht.vaultapp.domain;
 
-import com.syht.vaultapp.domain.enums.MediaGenre;
-import com.syht.vaultapp.domain.enums.ProgressState;
-import com.syht.vaultapp.domain.enums.ReleaseState;
+import com.syht.vaultapp.api.model.MediaGenre;
+import com.syht.vaultapp.api.model.ProgressState;
+import com.syht.vaultapp.api.model.ReleaseState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
