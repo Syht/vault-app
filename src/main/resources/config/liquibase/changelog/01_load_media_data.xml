@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                          http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="00000000000011" author="syht">
+    <!-- Load Media data -->
+    <loadData
+      file="config/liquibase/data/media.csv"
+      separator=";"
+      tableName="media">
+      <column name="id" type="numeric"/>
+      <column name="title" type="string"/>
+      <column name="description" type="string"/>
+      <column name="release_date" type="date"/>
+      <column name="end_date" type="date"/>
+      <column name="rating" type="numeric"/>
+      <column name="cover_image" type="bytea"/>
+      <column name="thumbnail" type="bytea"/>
+      <column name="creation_date" type="timestamp"/>
+      <column name="release_state" type="string"/>
+      <column name="progress_state" type="string"/>
+    </loadData>
+
+    <!-- Load Manga data -->
+    <loadData
+      file="config/liquibase/data/manga.csv"
+      separator=";"
+      tableName="manga"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="mangaka" type="string"/>
+      <column name="illustrator" type="string"/>
+      <column name="chapters_count" type="numeric"/>
+      <column name="volume_count" type="numeric"/>
+      <column name="demographic" type="string"/>
+    </loadData>
+
+    <!-- Load Anime data -->
+    <loadData
+      file="config/liquibase/data/anime.csv"
+      separator=";"
+      tableName="anime"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="studio" type="string"/>
+      <column name="episodes_count" type="numeric"/>
+      <column name="adapted_from" type="string"/>
+    </loadData>
+
+    <!-- Load Series data -->
+    <loadData
+      file="config/liquibase/data/series.csv"
+      separator=";"
+      tableName="series"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="seasons_count" type="numeric"/>
+      <column name="episodes_count" type="numeric"/>
+      <column name="showrunner" type="string"/>
+      <column name="network" type="string"/>
+      <column name="episode_format" type="string"/>
+    </loadData>
+
+    <!-- Load Film data -->
+    <loadData
+      file="config/liquibase/data/film.csv"
+      separator=";"
+      tableName="film"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="director" type="string"/>
+      <column name="duration" type="numeric"/>
+      <column name="box_office" type="numeric"/>
+      <column name="budget" type="numeric"/>
+      <column name="saga" type="string"/>
+    </loadData>
+
+    <!-- Load Comics data -->
+    <loadData
+      file="config/liquibase/data/comics.csv"
+      separator=";"
+      tableName="comics"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="scenarist" type="string"/>
+      <column name="illustrator" type="string"/>
+      <column name="volume_count" type="numeric"/>
+      <column name="colorist" type="string"/>
+      <column name="publisher" type="string"/>
+    </loadData>
+
+    <!-- Load Book data -->
+    <loadData
+      file="config/liquibase/data/book.csv"
+      separator=";"
+      tableName="book"
+      usePreparedStatements="true">
+      <column name="media_id" type="numeric"/>
+      <column name="author" type="string"/>
+      <column name="edition" type="string"/>
+      <column name="page_count" type="numeric"/>
+    </loadData>
+
+    <!-- Load Genre data -->
+    <loadData
+      file="config/liquibase/data/genre.csv"
+      separator=";"
+      tableName="genre"
+      usePreparedStatements="true">
+      <column name="id" type="numeric"/>
+      <column name="name" type="string"/>
+    </loadData>
+
+    <!-- Load MEDIA_GENRE data -->
+    <loadData
+      file="config/liquibase/data/media_genre.csv"
+      separator=";"
+      tableName="media_genre"
+      usePreparedStatements="true">
+      <column name="id_genre" type="numeric"/>
+      <column name="id_media" type="numeric"/>
+    </loadData>
+
+  </changeSet>
+
+</databaseChangeLog>

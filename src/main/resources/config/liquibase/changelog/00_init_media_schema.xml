@@ -16,8 +16,8 @@
         <constraints nullable="false"/>
       </column>
       <column name="description" type="text"/>
-      <column name="release_date" type="timestamp"/>
-      <column name="end_date" type="timestamp"/>
+      <column name="release_date" type="date"/>
+      <column name="end_date" type="date"/>
       <column name="rating" type="decimal(3,2)"/>
       <column name="cover_image" type="bytea"/>
       <column name="thumbnail" type="bytea"/>
@@ -26,12 +26,22 @@
       <column name="progress_state" type="varchar(50)"/>
     </createTable>
 
+    <!-- Create Genre Table for Element Collection (Set<MediaGenre>) -->
+    <createTable tableName="genre">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="varchar(50)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
     <!-- Create Media Genre Table for Element Collection (Set<MediaGenre>) -->
     <createTable tableName="media_genre">
       <column name="media_id" type="bigint">
         <constraints nullable="false"/>
       </column>
-      <column name="genre" type="varchar(50)">
+      <column name="genre_id" type="bigint">
         <constraints nullable="false"/>
       </column>
     </createTable>
@@ -42,14 +52,18 @@
                              constraintName="fk_media_genre_media"
                              referencedColumnNames="id"
                              referencedTableName="media"/>
+
+    <!-- Add Foreign Key for media_genre to genre -->
+    <addForeignKeyConstraint baseColumnNames="genre_id"
+                             baseTableName="media_genre"
+                             constraintName="fk_media_genre_genre"
+                             referencedColumnNames="id"
+                             referencedTableName="genre"/>
   </changeSet>
 
   <!-- Create Manga Table -->
   <changeSet id="00000000000004" author="syht">
     <createTable tableName="manga">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
       <column name="mangaka" type="varchar(255)"/>
       <column name="illustrator" type="varchar(255)"/>
       <column name="chapters_count" type="integer"/>
@@ -71,9 +85,6 @@
   <!-- Create Film Table -->
   <changeSet id="00000000000005" author="syht">
     <createTable tableName="film">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
       <column name="director" type="varchar(255)"/>
       <column name="duration" type="integer"/>
       <column name="box_office" type="decimal(15,2)"/>
@@ -95,9 +106,6 @@
   <!-- Create Series Table -->
   <changeSet id="00000000000006" author="syht">
     <createTable tableName="series">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
       <column name="seasons_count" type="integer"/>
       <column name="episodes_count" type="integer"/>
       <column name="showrunner" type="varchar(255)"/>
@@ -119,9 +127,6 @@
   <!-- Create Anime Table -->
   <changeSet id="00000000000007" author="syht">
     <createTable tableName="anime">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
       <column name="studio" type="varchar(255)"/>
       <column name="episodes_count" type="integer"/>
       <column name="adapted_from" type="varchar(50)"/>
@@ -140,10 +145,7 @@
 
   <!-- Create Books Table -->
   <changeSet id="00000000000008" author="syht">
-    <createTable tableName="books">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
+    <createTable tableName="book">
       <column name="author" type="varchar(255)"/>
       <column name="edition" type="varchar(255)"/>
       <column name="page_count" type="integer"/>
@@ -154,8 +156,8 @@
 
     <!-- Add Foreign Key for Books to Media -->
     <addForeignKeyConstraint baseColumnNames="media_id"
-                             baseTableName="books"
-                             constraintName="fk_books_media"
+                             baseTableName="book"
+                             constraintName="fk_book_media"
                              referencedColumnNames="id"
                              referencedTableName="media"/>
   </changeSet>
@@ -163,9 +165,6 @@
   <!-- Create Comics Table -->
   <changeSet id="00000000000009" author="syht">
     <createTable tableName="comics">
-      <column name="id" type="bigint">
-        <constraints primaryKey="true" nullable="false"/>
-      </column>
       <column name="scenarist" type="varchar(255)"/>
       <column name="volume_count" type="integer"/>
       <column name="illustrator" type="varchar(255)"/>
@@ -202,7 +201,7 @@
       <column name="media_id"/>
     </createIndex>
 
-    <createIndex indexName="idx_books_media_id" tableName="books">
+    <createIndex indexName="idx_book_media_id" tableName="book">
       <column name="media_id"/>
     </createIndex>
 

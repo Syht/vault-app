@@ -1,19 +1,32 @@
 package com.syht.vaultapp.domain;
 
-import com.syht.vaultapp.api.model.MediaGenre;
 import com.syht.vaultapp.api.model.ProgressState;
 import com.syht.vaultapp.api.model.ReleaseState;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @NoArgsConstructor
@@ -36,14 +49,13 @@ public abstract class Media implements Serializable {
 
     private String description;
 
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
-    private Date endDate;
+    private LocalDate endDate;
 
-    @ElementCollection
-    @CollectionTable(name = "media_genre", joinColumns = @JoinColumn(name = "media_id"))
-    @Column(name = "genre")
-    private Set<MediaGenre> genre;
+    @ManyToMany
+    @JoinTable(name = "media_genre", joinColumns = @JoinColumn(name = "media_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private Set<Genre> genres;
 
     private BigDecimal rating;
 
@@ -53,6 +65,7 @@ public abstract class Media implements Serializable {
     @Lob
     private byte[] thumbnail;
 
+    @CreationTimestamp
     private Instant creationDate;
 
     @Enumerated(EnumType.STRING)

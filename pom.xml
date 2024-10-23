@@ -417,7 +417,7 @@
                 <skipDefaultInterface>true</skipDefaultInterface>
                 <!--suppress UnresolvedMavenProperty -->
                 <additionalModelTypeAnnotations>
-                  @lombok.Data;@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder
+                  @lombok.Data;@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.EqualsAndHashCode(callSuper = false)
                 </additionalModelTypeAnnotations>
                 <openApiNullable>false</openApiNullable>
               </configOptions>
@@ -485,6 +485,17 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+              </path>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </path>
+              <!-- Lombok-MapStruct Binding -->
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-mapstruct-binding</artifactId>
+                <version>0.2.0</version>
               </path>
               <path>
                 <groupId>org.hibernate.orm</groupId>
@@ -908,7 +919,7 @@
         <liquibase-plugin.url>jdbc:postgresql://localhost:5432/vaultApp</liquibase-plugin.url>
         <liquibase-plugin.username>vaultApp</liquibase-plugin.username>
         <profile.test>testdev</profile.test>
-        <spring.profiles.active>dev${profile.tls}${profile.no-liquibase}</spring.profiles.active>
+        <spring.profiles.active>dev${profile.tls}</spring.profiles.active>
       </properties>
       <dependencies>
         <dependency>

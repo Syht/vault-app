@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
-//@IntegrationTest
+@IntegrationTest
 class PublicUserResourceIT {
 
     @Autowired
@@ -69,7 +69,7 @@ class PublicUserResourceIT {
         numberOfUsers = null;
     }
 
-    //@Test
+    @Test
     @Transactional
     void getAllPublicUsers() throws Exception {
         // Initialize the database
@@ -87,7 +87,7 @@ class PublicUserResourceIT {
             .andExpect(jsonPath("$.[*].langKey").doesNotHaveJsonPath());
     }
 
-    //@Test
+    @Test
     @Transactional
     void getAllUsersSortedByParameters() throws Exception {
         // Initialize the database

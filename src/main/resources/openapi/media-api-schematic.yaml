@@ -24,8 +24,9 @@ components:
         endDate:
           type: string
           format: date
-        genre:
+        genres:
           type: array
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/MediaGenre'
         rating:
@@ -37,9 +38,6 @@ components:
         thumbnail:
           type: string
           format: byte
-        creationDate:
-          type: string
-          format: date-time
         releaseState:
           $ref: '#/components/schemas/ReleaseState'
         progressState:
@@ -171,11 +169,35 @@ components:
       type: string
       enum:
         - ACTION
+        - ADVENTURE
+        - COMEDY
         - DRAMA
         - FANTASY
         - HORROR
+        - MYSTERY
+        - ROMANCE
+        - SCI-FI
         - THRILLER
-        - COMEDY
+        - WESTERN
+        - CRIME
+        - HISTORICAL
+        - MUSICAL
+        - BIOGRAPHY
+        - DOCUMENTARY
+        - ANIMATION
+        - FAMILY
+        - WAR
+        - SPORT
+        - SUPERNATURAL
+        - PSYCHOLOGICAL
+        - SLICE OF LIFE
+        - MARTIAL ARTS
+        - MECHA
+        - SUPERHERO
+        - NOIR
+        - CYBERPUNK
+        - POST-APOCALYPTIC
+        - STEAMPUNK
 
     ProgressState:
       type: string

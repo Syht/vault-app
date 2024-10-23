@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  * - GitHub Issue: https://github.com/jhipster/generator-jhipster/issues/22579
  * - Pull Request: https://github.com/jhipster/generator-jhipster/pull/22946
  */
-//@IntegrationTest
+@IntegrationTest
 class HibernateTimeZoneIT {
 
     @Autowired
@@ -60,7 +60,7 @@ class HibernateTimeZoneIT {
         dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeInstantWithZoneIdConfigShouldBeStoredOnConfiguredTimeZone() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -72,7 +72,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeLocalDateTimeWithZoneIdConfigShouldBeStoredOnConfiguredTimeZone() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -84,7 +84,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeOffsetDateTimeWithZoneIdConfigShouldBeStoredOnConfiguredTimeZone() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -96,7 +96,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeZoneDateTimeWithZoneIdConfigShouldBeStoredOnConfiguredTimeZone() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -108,7 +108,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeLocalTimeWithZoneIdConfigShouldBeStoredOnConfiguredTimeZoneAccordingToHis1stJan1970Value() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -124,7 +124,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeOffsetTimeWithZoneIdConfigShouldBeStoredOnConfiguredTimeZoneAccordingToHis1stJan1970Value() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
@@ -145,7 +145,7 @@ class HibernateTimeZoneIT {
         assertThatValueFromSqlRowSetIsEqualToExpectedValue(resultSet, expectedValue);
     }
 
-    //@Test
+    @Test
     @Transactional
     void storeLocalDateWithZoneIdConfigShouldBeStoredWithoutTransformation() {
         dateTimeWrapperRepository.saveAndFlush(dateTimeWrapper);
