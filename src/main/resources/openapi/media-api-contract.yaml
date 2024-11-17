@@ -10,6 +10,21 @@ paths:
   /manga:
     get:
       summary: Get all mangas
+      description: Retrieve a list of all mangas in the database, with optional pagination.
+      operationId: getAllManga
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of mangas
@@ -19,8 +34,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/MangaDTO'
+        '500':
+          description: Internal server error
     post:
       summary: Create a new manga
+      description: Adds a new manga to the database.
+      operationId: createManga
       requestBody:
         description: Manga object to be created
         required: true
@@ -35,14 +54,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MangaDTO'
+        '400':
+          description: Invalid manga data
+        '500':
+          description: Internal server error
 
   /manga/{id}:
     get:
       summary: Get a specific manga by ID
+      description: Retrieve a specific manga by its unique identifier.
+      operationId: getMangaById
       parameters:
         - name: id
           in: path
           required: true
+          description: The ID of the manga to retrieve
           schema:
             type: integer
       responses:
@@ -54,13 +80,17 @@ paths:
                 $ref: '#/components/schemas/MangaDTO'
         '404':
           description: Manga not found
-
+        '500':
+          description: Internal server error
     put:
       summary: Update a manga
+      description: Update the details of an existing manga.
+      operationId: updateManga
       parameters:
         - name: id
           in: path
           required: true
+          description: The ID of the manga to update
           schema:
             type: integer
       requestBody:
@@ -73,22 +103,49 @@ paths:
       responses:
         '200':
           description: Manga updated successfully
-
+        '400':
+          description: Invalid manga data
+        '404':
+          description: Manga not found
+        '500':
+          description: Internal server error
     delete:
       summary: Delete a manga
+      description: Deletes a manga by its unique identifier.
+      operationId: deleteManga
       parameters:
         - name: id
           in: path
           required: true
+          description: The ID of the manga to delete
           schema:
             type: integer
       responses:
         '204':
           description: Manga deleted successfully
+        '404':
+          description: Manga not found
+        '500':
+          description: Internal server error
 
   /series:
     get:
       summary: Get all series
+      description: Retrieve a list of all series in the database, with optional pagination.
+      operationId: getAllSeries
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of series
@@ -98,10 +155,118 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SeriesDTO'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new series
+      description: Adds a new series to the database.
+      operationId: createSeries
+      requestBody:
+        description: Series object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeriesDTO'
+      responses:
+        '201':
+          description: Series created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesDTO'
+        '400':
+          description: Invalid series data
+        '500':
+          description: Internal server error
+
+  /series/{id}:
+    get:
+      summary: Get a specific series by ID
+      description: Retrieve a specific series by its unique identifier.
+      operationId: getSeriesById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the series to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The series object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesDTO'
+        '404':
+          description: Series not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a series
+      description: Update the details of an existing series.
+      operationId: updateSeries
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the series to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated series object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeriesDTO'
+      responses:
+        '200':
+          description: Series updated successfully
+        '400':
+          description: Invalid series data
+        '404':
+          description: Series not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a series
+      description: Deletes a series by its unique identifier.
+      operationId: deleteSeries
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the series to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Series deleted successfully
+        '404':
+          description: Series not found
+        '500':
+          description: Internal server error
 
   /film:
     get:
       summary: Get all films
+      description: Retrieve a list of all films in the database, with optional pagination.
+      operationId: getAllFilms
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of films
@@ -111,10 +276,118 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FilmDTO'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new film
+      description: Adds a new film to the database.
+      operationId: createFilm
+      requestBody:
+        description: Film object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilmDTO'
+      responses:
+        '201':
+          description: Film created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilmDTO'
+        '400':
+          description: Invalid film data
+        '500':
+          description: Internal server error
+
+  /film/{id}:
+    get:
+      summary: Get a specific film by ID
+      description: Retrieve a specific film by its unique identifier.
+      operationId: getFilmById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the film to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The film object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilmDTO'
+        '404':
+          description: Film not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a film
+      description: Update the details of an existing film.
+      operationId: updateFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the film to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated film object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilmDTO'
+      responses:
+        '200':
+          description: Film updated successfully
+        '400':
+          description: Invalid film data
+        '404':
+          description: Film not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a film
+      description: Deletes a film by its unique identifier.
+      operationId: deleteFilm
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the film to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Film deleted successfully
+        '404':
+          description: Film not found
+        '500':
+          description: Internal server error
 
   /comics:
     get:
       summary: Get all comics
+      description: Retrieve a list of all comics in the database, with optional pagination.
+      operationId: getAllComics
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of comics
@@ -124,10 +397,118 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ComicsDTO'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new comic
+      description: Adds a new comic to the database.
+      operationId: createComics
+      requestBody:
+        description: Comics object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComicsDTO'
+      responses:
+        '201':
+          description: Comic created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComicsDTO'
+        '400':
+          description: Invalid comics data
+        '500':
+          description: Internal server error
+
+  /comics/{id}:
+    get:
+      summary: Get a specific comic by ID
+      description: Retrieve a specific comic by its unique identifier.
+      operationId: getComicsById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the comic to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The comic object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComicsDTO'
+        '404':
+          description: Comic not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a comic
+      description: Update the details of an existing comic.
+      operationId: updateComics
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the comic to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated comics object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComicsDTO'
+      responses:
+        '200':
+          description: Comic updated successfully
+        '400':
+          description: Invalid comics data
+        '404':
+          description: Comic not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a comic
+      description: Deletes a comic by its unique identifier.
+      operationId: deleteComics
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the comic to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Comic deleted successfully
+        '404':
+          description: Comic not found
+        '500':
+          description: Internal server error
 
   /book:
     get:
       summary: Get all books
+      description: Retrieve a list of all books in the database, with optional pagination.
+      operationId: getAllBooks
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of books
@@ -137,10 +518,118 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BookDTO'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new book
+      description: Adds a new book to the database.
+      operationId: createBook
+      requestBody:
+        description: Book object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDTO'
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDTO'
+        '400':
+          description: Invalid book data
+        '500':
+          description: Internal server error
+
+  /book/{id}:
+    get:
+      summary: Get a specific book by ID
+      description: Retrieve a specific book by its unique identifier.
+      operationId: getBookById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the book to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The book object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDTO'
+        '404':
+          description: Book not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a book
+      description: Update the details of an existing book.
+      operationId: updateBook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the book to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated book object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDTO'
+      responses:
+        '200':
+          description: Book updated successfully
+        '400':
+          description: Invalid book data
+        '404':
+          description: Book not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a book
+      description: Deletes a book by its unique identifier.
+      operationId: deleteBook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the book to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Book deleted successfully
+        '404':
+          description: Book not found
+        '500':
+          description: Internal server error
 
   /anime:
     get:
       summary: Get all anime
+      description: Retrieve a list of all anime in the database, with optional pagination.
+      operationId: getAllAnime
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: Page size for pagination
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
           description: List of anime
@@ -150,6 +639,99 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AnimeDTO'
+        '500':
+          description: Internal server error
+    post:
+      summary: Create a new anime
+      description: Adds a new anime to the database.
+      operationId: createAnime
+      requestBody:
+        description: Anime object to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimeDTO'
+      responses:
+        '201':
+          description: Anime created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDTO'
+        '400':
+          description: Invalid anime data
+        '500':
+          description: Internal server error
+
+  /anime/{id}:
+    get:
+      summary: Get a specific anime by ID
+      description: Retrieve a specific anime by its unique identifier.
+      operationId: getAnimeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the anime to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The anime object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDTO'
+        '404':
+          description: Anime not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update an anime
+      description: Update the details of an existing anime.
+      operationId: updateAnime
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the anime to update
+          schema:
+            type: integer
+      requestBody:
+        description: Updated anime object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimeDTO'
+      responses:
+        '200':
+          description: Anime updated successfully
+        '400':
+          description: Invalid anime data
+        '404':
+          description: Anime not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete an anime
+      description: Deletes an anime by its unique identifier.
+      operationId: deleteAnime
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the anime to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Anime deleted successfully
+        '404':
+          description: Anime not found
+        '500':
+          description: Internal server error
 
 components:
   schemas:

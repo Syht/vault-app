@@ -417,7 +417,8 @@
                 <skipDefaultInterface>true</skipDefaultInterface>
                 <!--suppress UnresolvedMavenProperty -->
                 <additionalModelTypeAnnotations>
-                  @lombok.Data;@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.EqualsAndHashCode(callSuper = false)
+                  @lombok.Setter;@lombok.Getter;@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.experimental.SuperBuilder;@lombok.EqualsAndHashCode(callSuper
+                  = false)
                 </additionalModelTypeAnnotations>
                 <openApiNullable>false</openApiNullable>
               </configOptions>
