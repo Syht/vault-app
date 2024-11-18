@@ -2,6 +2,7 @@ package com.syht.vaultapp.domain;
 
 import com.syht.vaultapp.api.model.ProgressState;
 import com.syht.vaultapp.api.model.ReleaseState;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,7 +13,6 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -53,16 +53,14 @@ public abstract class Media implements Serializable {
 
     private LocalDate endDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "media_genre", joinColumns = @JoinColumn(name = "media_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> genres;
 
     private BigDecimal rating;
 
-    @Lob
     private byte[] coverImage;
 
-    @Lob
     private byte[] thumbnail;
 
     @CreationTimestamp

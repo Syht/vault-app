@@ -4,6 +4,7 @@ import com.syht.vaultapp.api.model.EpisodeFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "series")
+@PrimaryKeyJoinColumn(name = "media_id")
 public class Series extends Media {
 
     private Integer seasonsCount;

@@ -3,9 +3,9 @@ package com.syht.vaultapp.web.rest;
 import com.syht.vaultapp.api.controller.AnimeApi;
 import com.syht.vaultapp.api.model.AnimeDTO;
 import com.syht.vaultapp.service.AnimeService;
-import org.springframework.http.ResponseEntity;
-
+import java.net.URI;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public class AnimeResource implements AnimeApi {
 
@@ -19,14 +19,15 @@ public class AnimeResource implements AnimeApi {
      * POST /anime : Create a new anime
      * Adds a new anime to the database.
      *
-     * @param animeDTO Anime object to be created (required)
+     * @param pAnimeDTO Anime object to be created (required)
      * @return Anime created successfully (status code 201)
      * or Invalid anime data (status code 400)
      * or Internal server error (status code 500)
      */
     @Override
-    public ResponseEntity<AnimeDTO> createAnime(final AnimeDTO animeDTO) {
-        return new ResponseEntity<>(animeService.createAnime(animeDTO), null, 200);
+    public ResponseEntity<AnimeDTO> createAnime(final AnimeDTO pAnimeDTO) {
+        final AnimeDTO animeDTO = animeService.createAnime(pAnimeDTO);
+        return ResponseEntity.created(URI.create("/anime/" + animeDTO.getId())).body(animeDTO);
     }
 
     /**
@@ -40,7 +41,10 @@ public class AnimeResource implements AnimeApi {
      */
     @Override
     public ResponseEntity<Void> deleteAnime(final Integer id) {
-        return null;
+        if (animeService.deleteAnime(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -54,7 +58,7 @@ public class AnimeResource implements AnimeApi {
      */
     @Override
     public ResponseEntity<List<AnimeDTO>> getAllAnime(final Integer page, final Integer size) {
-        return null;
+        return ResponseEntity.ok(this.animeService.getAllAnime(page, size));
     }
 
     /**
@@ -68,7 +72,11 @@ public class AnimeResource implements AnimeApi {
      */
     @Override
     public ResponseEntity<AnimeDTO> getAnimeById(final Integer id) {
-        return null;
+        final AnimeDTO animeDTO = this.animeService.getAnimeById(id);
+        if (animeDTO != null) {
+            return ResponseEntity.ok(animeDTO);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -76,14 +84,18 @@ public class AnimeResource implements AnimeApi {
      * Update the details of an existing anime.
      *
      * @param id       The ID of the anime to update (required)
-     * @param animeDTO Updated anime object (required)
+     * @param pAnimeDTO Updated anime object (required)
      * @return Anime updated successfully (status code 200)
      * or Invalid anime data (status code 400)
      * or Anime not found (status code 404)
      * or Internal server error (status code 500)
      */
     @Override
-    public ResponseEntity<Void> updateAnime(final Integer id, final AnimeDTO animeDTO) {
-        return null;
+    public ResponseEntity<AnimeDTO> updateAnime(final Integer id, final AnimeDTO pAnimeDTO) {
+        final AnimeDTO animeDTO = this.animeService.updateAnime(id, pAnimeDTO);
+        if (animeDTO != null) {
+            return ResponseEntity.ok(animeDTO);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

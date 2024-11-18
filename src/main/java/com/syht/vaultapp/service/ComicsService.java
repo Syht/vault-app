@@ -1,7 +1,7 @@
 package com.syht.vaultapp.service;
 
-import com.syht.vaultapp.api.model.AnimeDTO;
-import com.syht.vaultapp.domain.Anime;
+import com.syht.vaultapp.api.model.ComicsDTO;
+import com.syht.vaultapp.domain.Comics;
 import com.syht.vaultapp.domain.Media;
 import com.syht.vaultapp.repository.MediaRepository;
 import com.syht.vaultapp.service.mapper.MediaMapper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class AnimeService {
+public class ComicsService {
 
     private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
@@ -25,16 +25,16 @@ public class AnimeService {
      * @param pMediaRepository media repository
      * @param pMediaMapper media mapper
      */
-    public AnimeService(final MediaRepository pMediaRepository, final MediaMapper pMediaMapper) {
+    public ComicsService(final MediaRepository pMediaRepository, final MediaMapper pMediaMapper) {
         mediaRepository = pMediaRepository;
         mediaMapper = pMediaMapper;
     }
 
-    public AnimeDTO createAnime(final AnimeDTO animeDTO) {
-        return this.mediaMapper.toDto(this.mediaRepository.save(this.mediaMapper.toEntity(animeDTO)));
+    public ComicsDTO createComics(final ComicsDTO comicsDTO) {
+        return this.mediaMapper.toDto(this.mediaRepository.save(this.mediaMapper.toEntity(comicsDTO)));
     }
 
-    public boolean deleteAnime(final Integer id) {
+    public boolean deleteComics(final Integer id) {
         try {
             this.mediaRepository.deleteById(id.longValue());
             return true;
@@ -43,23 +43,23 @@ public class AnimeService {
         }
     }
 
-    public List<AnimeDTO> getAllAnime(final Integer page, final Integer size) {
-        Page<Anime> animePage = this.mediaRepository.findAllAnime(PageRequest.of(page, size));
-        return this.mediaMapper.mapList(animePage.getContent(), this.mediaMapper::toDto);
+    public List<ComicsDTO> getAllComics(final Integer page, final Integer size) {
+        Page<Comics> comicsPage = this.mediaRepository.findAllComics(PageRequest.of(page, size));
+        return this.mediaMapper.mapList(comicsPage.getContent(), this.mediaMapper::toDto);
     }
 
-    public AnimeDTO getAnimeById(final Integer id) {
+    public ComicsDTO getComicsById(final Integer id) {
         final Media media = this.mediaRepository.findById(id.longValue()).orElse(null);
-        if (media instanceof Anime) {
-            return this.mediaMapper.toDto((Anime) media);
+        if (media instanceof Comics) {
+            return this.mediaMapper.toDto((Comics) media);
         }
         return null;
     }
 
-    public AnimeDTO updateAnime(final Integer id, final AnimeDTO animeDTO) {
+    public ComicsDTO updateComics(final Integer id, final ComicsDTO comicsDTO) {
         if (this.mediaRepository.existsById(id.longValue())) {
-            animeDTO.setId(id);
-            return this.mediaMapper.toDto(this.mediaRepository.save(this.mediaMapper.toEntity(animeDTO)));
+            comicsDTO.setId(id);
+            return this.mediaMapper.toDto(this.mediaRepository.save(this.mediaMapper.toEntity(comicsDTO)));
         }
         return null;
     }

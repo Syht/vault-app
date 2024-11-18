@@ -103,6 +103,10 @@ paths:
       responses:
         '200':
           description: Manga updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MangaDTO'
         '400':
           description: Invalid manga data
         '404':
@@ -224,6 +228,10 @@ paths:
       responses:
         '200':
           description: Series updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeriesDTO'
         '400':
           description: Invalid series data
         '404':
@@ -345,6 +353,10 @@ paths:
       responses:
         '200':
           description: Film updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilmDTO'
         '400':
           description: Invalid film data
         '404':
@@ -466,6 +478,10 @@ paths:
       responses:
         '200':
           description: Comic updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComicsDTO'
         '400':
           description: Invalid comics data
         '404':
@@ -587,6 +603,10 @@ paths:
       responses:
         '200':
           description: Book updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDTO'
         '400':
           description: Invalid book data
         '404':
@@ -708,6 +728,10 @@ paths:
       responses:
         '200':
           description: Anime updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimeDTO'
         '400':
           description: Invalid anime data
         '404':

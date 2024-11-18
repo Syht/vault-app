@@ -15,6 +15,8 @@ import com.syht.vaultapp.domain.Series;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -44,7 +46,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Manga> findMangaById(Long id);
 
     @Query("SELECT m FROM Manga m")
-    List<Manga> findAllManga();
+    Page<Manga> findAllManga(Pageable pageable);
+
+    @Query("SELECT COUNT(m) FROM Manga m WHERE TYPE(m) = Manga")
+    long countManga();
 
     List<Manga> findByMangakaContainingIgnoreCase(String mangaka);
 
@@ -62,7 +67,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Manga> findSeriesById(Long id);
 
     @Query("SELECT s FROM Series s")
-    List<Series> findAllSeries();
+    Page<Series> findAllSeries(Pageable pageable);
+
+    @Query("SELECT COUNT(s) FROM Series s WHERE TYPE(s) = Series")
+    long countSeries();
 
     List<Series> findByShowrunnerContainingIgnoreCase(String showrunner);
 
@@ -80,7 +88,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Manga> findFilmById(Long id);
 
     @Query("SELECT f FROM Film f")
-    List<Film> findAllFilms();
+    Page<Film> findAllFilms(Pageable pageable);
+
+    @Query("SELECT COUNT(f) FROM Film f WHERE TYPE(f) = Film")
+    long countFilm();
 
     List<Film> findByDirectorContainingIgnoreCase(String director);
 
@@ -100,7 +111,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Comics> findComicsById(Long id);
 
     @Query("SELECT c FROM Comics c")
-    List<Comics> findAllComics();
+    Page<Comics> findAllComics(Pageable pageable);
+
+    @Query("SELECT COUNT(c) FROM Comics c WHERE TYPE(c) = Comics")
+    long countComics();
 
     List<Comics> findByScenaristContainingIgnoreCase(String scenarist);
 
@@ -118,7 +132,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Book> findBookById(Long id);
 
     @Query("SELECT b FROM Book b")
-    List<Book> findAllBooks();
+    Page<Book> findAllBooks(Pageable pageable);
+
+    @Query("SELECT COUNT(b) FROM Book b WHERE TYPE(b) = Book")
+    long countBook();
 
     List<Book> findByAuthorContainingIgnoreCase(String author);
 
@@ -134,7 +151,10 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Optional<Anime> findAnimeById(Long id);
 
     @Query("SELECT a FROM Anime a")
-    List<Anime> findAllAnime();
+    Page<Anime> findAllAnime(Pageable pageable);
+
+    @Query("SELECT COUNT(a) FROM Anime a WHERE TYPE(a) = Anime")
+    long countAnime();
 
     List<Anime> findByStudioContainingIgnoreCase(String studio);
 
